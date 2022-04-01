@@ -1,7 +1,8 @@
 use std::process::exit;
 use postgres::{Client, Error, NoTls};
 
-pub(crate) fn check(username: &str, email: &str) -> Result<(), Error>{
+pub(crate) fn check_user_details(username: &str, email: &str) -> Result<(), Error>{
+    /// CHANGE ACCORDING TO YOUR POSTGRES USERNAME & DATABASE
     let mut client = Client::connect("postgresql://grimgram:grimgram@localhost/rust", NoTls)?;
 
     for row in client.query("SELECT * FROM users WHERE username=$1", &[&username])? {
@@ -24,3 +25,5 @@ pub(crate) fn check(username: &str, email: &str) -> Result<(), Error>{
     }
     Ok(())
 }
+
+//pub(crate) fn check_
