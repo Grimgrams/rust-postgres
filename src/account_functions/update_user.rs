@@ -15,6 +15,5 @@ fn update_username() -> Result<(), Error>{
 
     client.execute("UPDATE users SET username = $1 WHERE email $2", &[&username, &email])?;
 
-
     Ok(())
 }

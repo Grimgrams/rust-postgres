@@ -1,4 +1,6 @@
 mod db_functions;
+mod account_functions;
+
 use postgres::{Client, Error, NoTls};
 use crate::db_functions::check::check_user_details;
 use crate::db_functions::create_user::create_user;
