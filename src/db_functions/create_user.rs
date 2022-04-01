@@ -43,24 +43,21 @@ pub(crate) fn create_user() -> Result<(), Error>{
 
     //TODO fix email validation
 
-        //let email_regex = Regex::new(r"^([a-z0-9_+]([a-z0-9_+.]*[a-z0-9_+])?)@([a-z0-9]+([\-\.][a-z0-9]+)*\.[a-z]{2,6})").unwrap();
-
-        //let check_email = email_regex.is_match(&*email);
-
-    /*
-        if check_email != true {
-            println!("EMAIL IS INVALID");
-            create_user();
-        }
-*/
+    let email_regex =  Regex::new(r"^([a-z0-9_+]([a-z0-9_+.]*[a-z0-9_+])?)@([a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6})").unwrap();
+    let mut email_check: String = email;
+    let is_email_val = email_regex.is_match(&*email_check);
+    if is_email_val == false {
+        println!("INVALID EMAIL");
+        create_user();
+    } else { println!("checking database...") }
 
     // check function checks db for accounts with the same input
     // !!goes before insert query so no error gets executed
-    check_user_details(&*username, &*email);
+    check_user_details(&*username, &*email_check);
 
     client.execute(
         "INSERT INTO users (username, password, email, a_type) VALUES ($1, $2, $3, $4)",
-        &[&username, &password, &email, &a_type],
+        &[&username, &password, &email_check, &a_type],
     )?;
 
     Ok(())

@@ -3,7 +3,6 @@ use postgres::{Client, Error, NoTls};
 use crate::db_functions::check::check_user_details;
 use crate::db_functions::create_user::create_user;
 
-
 fn main() -> Result<(), Error> {
     /// CHANGE ACCORDING TO YOUR POSTGRES USERNAME & DATABASE
     let mut client = Client::connect("postgresql://grimgram:grimgram@localhost/rust", NoTls)?;
