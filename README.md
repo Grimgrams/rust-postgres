@@ -6,11 +6,6 @@ MacOS
 ```bash
 $ brew install postgresql
 ```
-
-Linux
-```bash
-$ {your pm} {install command} postgresql
-```
 Arch
 ```bash
 $ pacman -S postgresql
