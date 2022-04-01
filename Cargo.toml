@@ -9,3 +9,4 @@ authors = ["Julian <julianjpit@gmail.com>"]
 [dependencies]
 postgres = "0.19.2"
 regex = "1.5.5"
+bcrypt = "0.12.1"

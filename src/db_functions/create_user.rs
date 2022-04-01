@@ -1,10 +1,14 @@
+extern crate bcrypt;
+use bcrypt::{DEFAULT_COST, hash, verify};
 use regex::Regex;
 use postgres::{Client, Error, NoTls};
 use crate::db_functions::check::check_user_details;
 
 
 
+
 pub(crate) fn create_user() -> Result<(), Error>{
+    /// CHANGE ACCORDING TO YOUR POSTGRES USERNAME & DATABASE
     let mut client = Client::connect("postgresql://grimgram:grimgram@localhost/rust", NoTls)?;
 
     let mut username= String::new();
@@ -41,7 +45,6 @@ pub(crate) fn create_user() -> Result<(), Error>{
             create_user();
         }
 
-    //TODO fix email validation
 
     let email_regex =  Regex::new(r"^([a-z0-9_+]([a-z0-9_+.]*[a-z0-9_+])?)@([a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6})").unwrap();
     let mut email_check: String = email;
