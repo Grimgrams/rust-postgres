@@ -1,4 +1,5 @@
 # rust-postgres
+This project was just to learn postgresql with rust, i don't know what it is now.
 
 ## Installing postgresql
 
