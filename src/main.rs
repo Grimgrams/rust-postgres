@@ -1,39 +1,14 @@
 mod db_functions;
 use postgres::{Client, Error, NoTls};
-use crate::db_functions::check::check;
+use crate::db_functions::check::check_user_details;
 
 
 
 fn main() -> Result<(), Error> {
+    /// CHANGE ACCORDING TO YOUR POSTGRES USERNAME & DATABASE
     let mut client = Client::connect("postgresql://grimgram:grimgram@localhost/rust", NoTls)?;
 
-    let mut username= String::new();
-    let mut password = String::new();
-    let mut email = String::new();
-    let mut a_type = String::new();
-    //username = "Bobby201";
-    //password = "SuperNotHashedPassword2";
-    //email = "bobbyhill244@gmail.com";
-    //a_type = "000";
-        println!("Enter Username: ");
-        std::io::stdin().read_line(&mut username).unwrap();
-        println!("Enter Email: ");
-        std::io::stdin().read_line(&mut email).unwrap();
-        println!("Enter Password: ");
-        std::io::stdin().read_line(&mut password).unwrap();
-        a_type = "000".parse().unwrap();
-
-        // check function checks db for accounts with the same input
-        // !!goes before insert query so no error get executed
-        check(&*username, &*email);
-
-    client.execute(
-        "INSERT INTO users (username, password, email, a_type) VALUES ($1, $2, $3, $4)",
-       &[&username, &password, &email, &a_type],
-    )?;
-
-
-
+    // Returns all users in database (it can be deleted)
     for row in client.query("SELECT id, username, password, email, a_type FROM users", &[])? {
         let id: i32 = row.get(0);
         let username: &str = row.get(1);
