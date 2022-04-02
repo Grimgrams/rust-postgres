@@ -1,5 +1,5 @@
 [package]
-name = "somethingRust"
+name = "rust-postgres"
 version = "0.1.0"
 edition = "2021"
 authors = ["Julian <julianjpit@gmail.com>"]
@@ -9,4 +9,7 @@ authors = ["Julian <julianjpit@gmail.com>"]
 [dependencies]
 postgres = "0.19.2"
 regex = "1.5.5"
-bcrypt = "0.12.1"
+
+[dependencies.magic-crypt]
+version = "*"
+default-features = false
