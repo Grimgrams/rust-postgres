@@ -78,7 +78,6 @@ dependencies = [
 ]
 
 [[package]]
-<<<<<<< HEAD
 name = "blowfish"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
