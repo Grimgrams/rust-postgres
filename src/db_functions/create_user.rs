@@ -1,14 +1,12 @@
-extern crate bcrypt;
-use bcrypt::{DEFAULT_COST, hash, verify};
 use regex::Regex;
+extern crate magic_crypt;
+use magic_crypt::{MagicCryptTrait, new_magic_crypt};
 use postgres::{Client, Error, NoTls};
 use crate::db_functions::check::check_user_details;
 
 
 
-
 pub(crate) fn create_user() -> Result<(), Error>{
-    /// CHANGE ACCORDING TO YOUR POSTGRES USERNAME & DATABASE
     let mut client = Client::connect("postgresql://grimgram:grimgram@localhost/rust", NoTls)?;
 
     let mut username= String::new();
@@ -20,7 +18,7 @@ pub(crate) fn create_user() -> Result<(), Error>{
 
         println!("Enter Username (min 4): ");
         std::io::stdin().read_line(&mut username).unwrap();
-        println!("Enter Email: ");
+        println!("Enter Email (no caps): ");
         std::io::stdin().read_line(&mut email).unwrap();
         println!("Enter Password (min 16): ");
         std::io::stdin().read_line(&mut password).unwrap();
@@ -45,8 +43,14 @@ pub(crate) fn create_user() -> Result<(), Error>{
             create_user();
         }
 
+    //TODO fix email validation
+
+    // Your key of choice (any)
+    let mcrypt = new_magic_crypt!("your_password_key");
+    let password_en = mcrypt.encrypt_str_to_base64(password);
 
     let email_regex =  Regex::new(r"^([a-z0-9_+]([a-z0-9_+.]*[a-z0-9_+])?)@([a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6})").unwrap();
+                                                // ^ this may be why your getting an invalid email, change [a-z0-9_+] -> [a-zA-Z0-9_+] to fix email check error (below)
     let mut email_check: String = email;
     let is_email_val = email_regex.is_match(&*email_check);
     if is_email_val == false {
@@ -60,8 +64,10 @@ pub(crate) fn create_user() -> Result<(), Error>{
 
     client.execute(
         "INSERT INTO users (username, password, email, a_type) VALUES ($1, $2, $3, $4)",
-        &[&username, &password, &email_check, &a_type],
+        &[&username, &password_en, &email_check, &a_type],
     )?;
+
+    println!("User registration successful!");
 
     Ok(())
 }
