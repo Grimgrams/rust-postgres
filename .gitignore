@@ -1,3 +1,4 @@
 /target
 /.idea
 /somethingRust.iml
+/.login_cache

@@ -1,6 +1,6 @@
 use postgres::{Client, Error, NoTls};
 
-fn update_username() -> Result<(), Error>{
+pub(crate) fn update_username() -> Result<(), Error>{
     /// CHANGE ACCORDING TO YOUR POSTGRES USERNAME & DATABASE
     let mut client = Client::connect("postgresql://grimgram:grimgram@localhost/rust", NoTls)?;
 
@@ -13,7 +13,7 @@ fn update_username() -> Result<(), Error>{
     std::io::stdin().read_line(&mut username).unwrap();
 
 
-    client.execute("UPDATE users SET username = $1 WHERE email $2", &[&username, &email])?;
+    client.execute("UPDATE users SET username = $1 WHERE email = $2", &[&username, &email])?;
 
     Ok(())
 }

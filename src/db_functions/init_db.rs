@@ -1,6 +1,7 @@
 use postgres::{Client, Error, NoTls};
-fn init_db() -> Result<(), Error>{
-    /// CHANGE ACCORDING TO YOUR POSTGRES USERNAME & DATABASE
+use std::io::Write;
+pub(crate) fn init_db() -> Result<(), Error>{
+    // CHANGE ACCORDING TO YOUR POSTGRES USERNAME & DATABASE
     let mut client = Client::connect("postgresql://grimgram:grimgram@localhost/rust", NoTls)?;
 
     println!("Setting up database...");
@@ -17,6 +18,8 @@ fn init_db() -> Result<(), Error>{
         a_type varchar not null
     );
     ")?;
+    //let mut init_check = std::fs::File::create(".db_init_success_file_rustps");
+    //init_check.write_all("init_successful, 100".as_bytes()).expect("Write Failed");
     println!("Done! you can start using now!");
 
     Ok(())

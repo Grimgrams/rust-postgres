@@ -5,7 +5,7 @@ use std::io::Write;
 use postgres::{Client, Error, NoTls};
 
 pub(crate) fn check_user_details(username: &str, email: &str) -> Result<(), Error>{
-    /// CHANGE ACCORDING TO YOUR POSTGRES USERNAME & DATABASE
+    // CHANGE ACCORDING TO YOUR POSTGRES USERNAME & DATABASE
     let mut client = Client::connect("postgresql://grimgram:grimgram@localhost/rust", NoTls)?;
 
     for row in client.query("SELECT * FROM users WHERE username=$1", &[&username])? {
@@ -28,7 +28,14 @@ pub(crate) fn check_user_details(username: &str, email: &str) -> Result<(), Erro
     }
     Ok(())
 }
+use std::io::Read;
+pub(crate) fn check_if_logged_in(){
+    let mut  is_logged_in_file_check = std::fs::File::open(".login_cache").expect("FILE NOT FOUND, YOU MUST LOGIN AGAIN!");
+    let mut contents = String::new();
+    is_logged_in_file_check.read_to_string(&mut contents).unwrap();
+}
 
+/*
 pub(crate) fn check_login(username: &str, email: &str, password: &str) -> Result<(), Error>{
 
     // these values are for when the program makes recursion (line 43, 48 53)
@@ -76,3 +83,5 @@ pub(crate) fn check_if_logged_in(username: &str, password: &str){
     login_cache.write_all(password_en.as_bytes()).expect("write failed");
     println!("Cache created successfully");
 }
+
+ */
