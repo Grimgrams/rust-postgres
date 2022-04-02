@@ -11,7 +11,8 @@ fn main() -> Result<(), Error> {
     // CHANGE ACCORDING TO YOUR POSTGRES USERNAME & DATABASE
     let mut client = Client::connect("postgresql://grimgram:grimgram@localhost/rust", NoTls)?;
     //create_user();
-    login();
+    //login();
+    update_username();
     /*
     // Returns all users in database (it can be deleted)
     for row in client.query("SELECT id, username, password, email, a_type FROM users", &[])? {

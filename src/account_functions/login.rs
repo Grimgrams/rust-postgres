@@ -6,7 +6,7 @@ use crate::db_functions::check::{check_if_logged_in};
 pub(crate) fn login() -> Result<(), Error>{
     // CHANGE ACCORDING TO YOUR POSTGRES USERNAME & DATABASE
     let mut client = Client::connect("postgresql://grimgram:grimgram@localhost/rust", NoTls)?;
-    //check_if_logged_in();
+    check_if_logged_in();
     let mut username  = String::new();
     let mut email = String::new();
     let mut password = String::new();
@@ -56,7 +56,7 @@ pub(crate) fn login() -> Result<(), Error>{
  
     }
 
-    
+
 
 
     Ok(())
