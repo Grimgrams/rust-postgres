@@ -10,7 +10,7 @@ pub(crate) fn init_db() -> Result<(), Error>{
     ")?;
     println!("Creating tables...");
     client.batch_execute("
-    CREATE TABLE rust(
+    CREATE TABLE users(
         id serial primary key,
         username varchar not null unique,
         password varchar not null,
