@@ -3,10 +3,17 @@ use magic_crypt::{MagicCryptTrait, new_magic_crypt};
 use std::process::exit;
 use std::io::Write;
 use postgres::{Client, Error, NoTls};
+extern crate dotenv;
+
+use dotenv::dotenv;
+use std::env;
 
 pub(crate) fn check_user_details(username: &str, email: &str) -> Result<(), Error>{
+    dotenv().ok();
+    let pskey = "PSQLHOST";
+    let psvalue= dotenv::var(pskey).unwrap();
     // CHANGE ACCORDING TO YOUR POSTGRES USERNAME & DATABASE
-    let mut client = Client::connect("postgresql://grimgram:grimgram@localhost/rust", NoTls)?;
+    let mut client = Client::connect(&*psvalue, NoTls)?;
 
     for row in client.query("SELECT * FROM users WHERE username=$1", &[&username])? {
         let username_match: &str = row.get(1);

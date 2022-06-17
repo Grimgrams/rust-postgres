@@ -1,31 +1,36 @@
 mod db_functions;
 mod account_functions;
 
-use postgres::{Client, Error, NoTls};
 use crate::db_functions::check::check_user_details;
 use crate::db_functions::create_user::create_user;
 use crate::db_functions::init_db::init_db;
 use crate::account_functions::update_user::{update_email, update_password, update_username};
 use crate::account_functions::login::login;
-fn main() -> Result<(), Error> {
-    // CHANGE ACCORDING TO YOUR POSTGRES USERNAME & DATABASE
-    let mut client = Client::connect("postgresql://grimgram:grimgram@localhost/rust", NoTls)?;
-    
-    /*
-    // Returns all users in database (it can be deleted)
-    for row in client.query("SELECT id, username, password, email, a_type FROM users", &[])? {
-        let id: i32 = row.get(0);
-        let username: &str = row.get(1);
-        let password: &str = row.get(2);
-        let email: &str = row.get(3);
-        let a_type: &str = row.get(4);
+use gtk::prelude::*;
+use gtk::{Application, ApplicationWindow, Button, ButtonBox};
 
-        println!("found user: {}, {}, {}, {}, {}", id, username, password, email, a_type);
+fn main() {
+    let app = Application::builder()
+        .application_id("com.GrimGrams.rust_postgres")
+        .build();
 
-    }
+    app.connect_activate(|app| {
+        // We create the main window.
+        let win = ApplicationWindow::builder()
+            .application(app)
+            .default_width(320)
+            .default_height(200)
+            .title("Hello, World!")
+            .build();
 
-     */
+        let login_button = Button::with_label("Log In");
+        login_button.connect_clicked(|_| {
+
+        });
 
 
-    Ok(())
+        win.show_all();
+    });
+
+    app.run();
 }
