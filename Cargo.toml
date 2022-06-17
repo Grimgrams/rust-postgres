@@ -9,6 +9,9 @@ authors = ["Julian <julianjpit@gmail.com>"]
 [dependencies]
 postgres = "0.19.2"
 regex = "1.5.5"
+mongodb = "2.2.2"
+gtk = { git = "https://github.com/gtk-rs/gtk3-rs.git" }
+dotenv = "0.15.0"
 
 [dependencies.magic-crypt]
 version = "*"

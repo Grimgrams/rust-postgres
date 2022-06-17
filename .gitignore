@@ -2,3 +2,6 @@
 /.idea
 /somethingRust.iml
 /.login_cache
+/src/.env
+/src/db_functions/settings.rs
+/src/gui_functions

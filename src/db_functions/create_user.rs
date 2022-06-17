@@ -3,12 +3,18 @@ extern crate magic_crypt;
 use magic_crypt::{MagicCryptTrait, new_magic_crypt};
 use postgres::{Client, Error, NoTls};
 use crate::db_functions::check::check_user_details;
+extern crate dotenv;
 
+use dotenv::dotenv;
+use std::env;
 
 
 pub(crate) fn create_user() -> Result<(), Error>{
+    dotenv().ok();
+    let pskey = "PSQLHOST";
+    let psvalue= dotenv::var(pskey).unwrap();
     // CHANGE ACCORDING TO YOUR POSTGRES USERNAME & DATABASE
-    let mut client = Client::connect("postgresql://grimgram:grimgram@localhost/rust", NoTls)?;
+    let mut client = Client::connect(&*psvalue, NoTls)?;
 
     let mut username= String::new();
     let mut password = String::new();

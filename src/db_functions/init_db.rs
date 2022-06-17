@@ -1,8 +1,15 @@
 use postgres::{Client, Error, NoTls};
 use std::io::Write;
+extern crate dotenv;
+
+use dotenv::dotenv;
+use std::env;
 pub(crate) fn init_db() -> Result<(), Error>{
+    dotenv().ok();
+    let pskey = "PSQLHOST";
+    let psvalue= dotenv::var(pskey).unwrap();
     // CHANGE ACCORDING TO YOUR POSTGRES USERNAME & DATABASE
-    let mut client = Client::connect("postgresql://grimgram:grimgram@localhost/rust", NoTls)?;
+    let mut client = Client::connect(&*psvalue, NoTls)?;
 
     println!("Setting up database...");
     client.batch_execute("
