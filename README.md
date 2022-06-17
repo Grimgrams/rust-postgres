@@ -3,7 +3,7 @@ This project was just to learn postgresql with rust, i don't know what it is now
 
 ## Installing Rust
 
-MacOS, Linux, Windows (with a pm)
+MacOS, Linux, Windows (with curl)
 ```bash
 $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
