@@ -2,4 +2,4 @@
 
 ----
 # rust-postgres
-This project is no longer maintained.
+Going to implement Redis for caching cause why not
